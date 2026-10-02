@@ -1,5 +1,15 @@
 # Cloud-Native Full-Stack Application — AWS
 
+![AWS](https://img.shields.io/badge/AWS-Cloud-orange)
+![React](https://img.shields.io/badge/React-Frontend-blue)
+![Node.js](https://img.shields.io/badge/Node.js-Backend-green)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
+![Docker](https://img.shields.io/badge/Docker-Containerization-blue)
+![ECS](https://img.shields.io/badge/Amazon-ECS-orange)
+![Terraform](https://img.shields.io/badge/Terraform-IaC-purple)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-CI%2FCD-blue)
+![CloudFront](https://img.shields.io/badge/Amazon-CloudFront-orange)
+
 A full-stack, cloud-native application demonstrating end-to-end software development, containerization, Infrastructure as Code (IaC), AWS cloud deployment, and CI/CD automation. The system pairs a React single-page frontend with an Express REST API and PostgreSQL database, deploying containerized backend services to AWS ECS Fargate behind an Application Load Balancer (ALB). Cloud infrastructure is fully codified using modular Terraform across isolated VPC networking tiers, with automated testing and continuous deployment managed via GitHub Actions and AWS OIDC.
 
 ---
@@ -33,6 +43,16 @@ A full-stack, cloud-native application demonstrating end-to-end software develop
 ---
 
 ## Architecture
+
+### Cloud Architecture Diagram
+
+![Architecture](docs/architecture-diagram-2.png)
+
+*Figure 1: Full-stack cloud deployment topology across AWS VPC networking tiers.*
+
+![Architecture Diagram](docs/architecture-diagram.png)
+
+*Figure 2: Three-tier cloud application architecture.*
 
 ### System Request Flow (AWS Cloud)
 
@@ -91,6 +111,16 @@ A full-stack, cloud-native application demonstrating end-to-end software develop
 
 ---
 
+## Application Screenshots
+
+### Backend API JSON Response
+
+![Output JSON](docs/outputjson.png)
+
+*Figure 3: Sample JSON payload returned from the backend REST API running on the cloud infrastructure.*
+
+---
+
 ## Technology Stack
 
 | Category | Technology | Version / Spec | Purpose |
@@ -128,7 +158,7 @@ A full-stack, cloud-native application demonstrating end-to-end software develop
 
 ---
 
-## Backend & API Architecture
+## Backend & REST APIs
 
 The backend follows a modular Express architecture structured around route definitions, request validation middleware, controller handlers, and pooled PostgreSQL queries:
 
@@ -255,6 +285,44 @@ The AWS cloud infrastructure is provisioned through Terraform, enforcing isolati
 | **ALB Security Group** (`cloudapp-alb-sg`) | TCP 80 & 443 from `0.0.0.0/0` | All traffic (`0.0.0.0/0`) | Public entry point for application HTTP/S traffic |
 | **ECS Security Group** (`cloudapp-ecs-sg`) | TCP 3000 restricted to `cloudapp-alb-sg` | All traffic (`0.0.0.0/0`) | Backend tasks only accept traffic originating from ALB |
 | **RDS Security Group** (`cloudapp-rds-sg`) | TCP 5432 restricted to `cloudapp-ecs-sg` | All traffic (`0.0.0.0/0`) | Database only accepts connections originating from ECS tasks |
+
+---
+
+### AWS Deployment & Infrastructure Screenshots
+
+#### Amazon ECS Fargate Cluster
+![ECS](docs/ecs-photo.png)
+
+#### Amazon ECR Container Repository
+![ECR](docs/ecr-photo.png)
+
+#### Application Load Balancer
+![ALB](docs/alb.jpg)
+
+#### ALB Target Group & Health Probes
+![ALB Target Group](docs/alb-target-group.png)
+
+#### Amazon RDS PostgreSQL Instance
+![RDS](docs/rds.png)
+
+#### Amazon CloudWatch Log Group
+![CloudWatch](docs/cloudwatch-logs.png)
+
+---
+
+### Historical CloudFront & S3 Deployment Exploration
+
+> [!NOTE]
+> The screenshots below document earlier manual explorations into hosting static frontend assets via Amazon S3 and CloudFront CDN. In the current automated Terraform and Docker configuration, the frontend is packaged via a multi-stage Dockerfile and served via Nginx.
+
+#### Amazon CloudFront CDN Distribution
+![CloudFront](docs/cloudfront-distribution.png)
+
+#### CloudFront Origin Settings
+![CloudFront Settings](docs/cloudfront-edited.png)
+
+#### Amazon S3 Static Hosting Bucket
+![S3](docs/s3-hosting.png)
 
 ---
 
@@ -660,9 +728,7 @@ Cloud-Native-AWS-Application/
 
 ---
 
-## Resume-Relevant Summary
-
-### Resume Highlights
+## Resume Highlights
 
 - **Full-Stack Application Development:** Developed and containerized a full-stack application using React, Node.js, Express, and PostgreSQL, implementing RESTful endpoints, connection pooling, and client-side error/loading states.
 - **Cloud Architecture & AWS ECS Fargate:** Provisioned and deployed containerized backend services to AWS ECS Fargate behind an Application Load Balancer across multi-AZ private VPC subnets with CloudWatch logging and health checks.
