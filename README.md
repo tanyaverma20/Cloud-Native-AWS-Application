@@ -12,6 +12,10 @@
 
 A full-stack, cloud-native application demonstrating end-to-end software development, containerization, Infrastructure as Code (IaC), AWS cloud deployment, and CI/CD automation. The system pairs a React single-page frontend with an Express REST API and PostgreSQL database, deploying containerized backend services to AWS ECS Fargate behind an Application Load Balancer (ALB). Cloud infrastructure is fully codified using modular Terraform across isolated VPC networking tiers, with automated testing and continuous deployment managed via GitHub Actions and AWS OIDC.
 
+<p align="center">
+  <img src="docs/dashboard_screenshots/overview.png" alt="CloudOps Overview — Main Infrastructure Dashboard" width="100%">
+</p>
+
 ---
 
 ## Overview
@@ -21,6 +25,33 @@ A full-stack, cloud-native application demonstrating end-to-end software develop
 - **Database layer:** PostgreSQL serves as the persistent relational data store. The backend connects using a pooled `pg.Pool` client with parameterized SQL queries to safeguard against SQL injection and optimize connection reuse.
 - **Cloud deployment approach:** The backend is containerized with Docker and deployed to serverless AWS ECS Fargate tasks running inside private subnets. Ingress traffic is managed by an AWS Application Load Balancer in public subnets. Database storage is provisioned via an encrypted, private Amazon RDS PostgreSQL instance.
 - **Why the project was built:** Developed as a practical, production-style software engineering and cloud implementation to demonstrate full-stack development, defensive API design, container lifecycle management, infrastructure automation, least-privilege cloud security, and automated continuous delivery.
+
+---
+
+## Dashboard Preview
+
+The application features **CloudOps**, an enterprise-grade cloud management console designed for real-time observability, data management, and container fleet orchestration:
+
+### Items Management
+> Query, search, and register database records stored in PostgreSQL with instant table synchronization and input-validated modals.
+
+<p align="center">
+  <img src="docs/dashboard_screenshots/items-management.png" alt="Items Management — Database Records, Search, and Create-Item Interface" width="100%">
+</p>
+
+### Infrastructure Topology
+> Interactive service map visualizing Docker container states, exposed network ports, runtime specifications, and bridge network DNS routing configurations.
+
+<p align="center">
+  <img src="docs/dashboard_screenshots/infrastructure.png" alt="Infrastructure Topology — Docker Services, Ports, and Network Architecture" width="100%">
+</p>
+
+### Real-Time Activity Feed
+> Real-time audit telemetry, container lifecycle events, database synchronization milestones, and automated health check status indicators.
+
+<p align="center">
+  <img src="docs/dashboard_screenshots/activity.png" alt="Activity Feed — Activity Logs, Timestamps, and Status Indicators" width="100%">
+</p>
 
 ---
 
