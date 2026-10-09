@@ -9,26 +9,38 @@ function HomePage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetchItems();
-  }, []);
+    let isMounted = true;
 
-  const fetchItems = async () => {
-    try {
-      const data = await getItems();
-      setItems(data);
-    } catch (err) {
-      setError("Failed to fetch items");
-    } finally {
-      setLoading(false);
+    async function loadItems() {
+      try {
+        const data = await getItems();
+        if (isMounted) {
+          setItems(data);
+        }
+      } catch {
+        if (isMounted) {
+          setError("Failed to fetch items");
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
     }
-  };
+
+    loadItems();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const handleAddItem = async (item) => {
     try {
       const newItem = await createItem(item);
 
-      setItems([...items, newItem]);
-    } catch (err) {
+      setItems((prevItems) => [...prevItems, newItem]);
+    } catch {
       setError("Failed to create item");
     }
   };
